@@ -1,0 +1,19 @@
+module decoder_op(opcode,rtype,addi,sw,lw);
+   
+   input [4:0] opcode; 
+   output rtype, addi, sw, lw;
+	wire[4:0] notCode;
+	not (notCode[0], opcode[0]);
+	not (notCode[1], opcode[1]);
+	not (notCode[2], opcode[2]);
+	not (notCode[3], opcode[3]);
+   not (notCode[4], opcode[4]);
+
+ 
+   and(rtype, notCode[4],notCode[3],notCode[2],notCode[1],notCode[0]);
+	and(addi, notCode[4],notCode[3],opcode[2],notCode[1],opcode[0]);
+	and(sw, notCode[4],notCode[3],opcode[2],opcode[1],opcode[0]);
+	and(lw, notCode[4],opcode[3],notCode[2],notCode[1],notCode[0]);
+	
+	
+endmodule
